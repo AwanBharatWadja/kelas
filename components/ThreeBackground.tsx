@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import { useColorModeValue } from '@chakra-ui/react';
@@ -11,10 +11,10 @@ function AnimatedPoints() {
   const particleColor = useColorModeValue('#14B8A6', '#5EEAD4');
 
   const [positions, colors] = useMemo(() => {
-    const positions = new Float32Array(2000 * 3);
-    const colors = new Float32Array(2000 * 3);
+    const positions = new Float32Array(1000 * 3);
+    const colors = new Float32Array(1000 * 3);
 
-    for (let i = 0; i < 2000; i++) {
+    for (let i = 0; i < 1000; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
@@ -30,8 +30,8 @@ function AnimatedPoints() {
 
   useFrame((state) => {
     if (ref.current) {
-      ref.current.rotation.x = state.clock.elapsedTime * 0.05;
-      ref.current.rotation.y = state.clock.elapsedTime * 0.075;
+      ref.current.rotation.x = state.clock.elapsedTime * 0.02;
+      ref.current.rotation.y = state.clock.elapsedTime * 0.03;
     }
   });
 
@@ -40,10 +40,10 @@ function AnimatedPoints() {
       <PointMaterial
         transparent
         color={particleColor}
-        size={0.02}
+        size={0.015}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.6}
+        opacity={0.4}
       />
     </Points>
   );
@@ -55,36 +55,56 @@ function FloatingGeometry() {
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-      meshRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.5;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.1;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
     }
   });
 
   return (
     <mesh ref={meshRef} position={[2, 0, -2]}>
-      <icosahedronGeometry args={[0.5, 1]} />
+      <icosahedronGeometry args={[0.3, 1]} />
       <meshStandardMaterial
         color={geometryColor}
         transparent
-        opacity={0.3}
+        opacity={0.2}
         wireframe
       />
     </mesh>
   );
 }
 
+function Scene() {
+  return (
+    <>
+      <ambientLight intensity={0.3} />
+      <pointLight position={[10, 10, 10]} intensity={0.5} />
+      <AnimatedPoints />
+      <FloatingGeometry />
+    </>
+  );
+}
+
 export default function ThreeBackground() {
   return (
-    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
+    <div style={{ 
+      position: 'absolute', 
+      top: 0, 
+      left: 0, 
+      width: '100%', 
+      height: '100%', 
+      zIndex: -1,
+      pointerEvents: 'none'
+    }}>
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
         style={{ background: 'transparent' }}
+        dpr={[1, 2]}
+        performance={{ min: 0.5 }}
       >
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <AnimatedPoints />
-        <FloatingGeometry />
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
       </Canvas>
     </div>
   );

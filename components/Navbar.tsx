@@ -7,13 +7,8 @@ import {
   HStack,
   IconButton,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   useDisclosure,
   useColorModeValue,
-  Stack,
   useColorMode,
   Text,
   Container,
@@ -32,8 +27,7 @@ import {
   HamburgerIcon, 
   CloseIcon, 
   MoonIcon, 
-  SunIcon,
-  ChevronDownIcon 
+  SunIcon
 } from '@chakra-ui/icons';
 
 const MotionBox = motion(Box);

@@ -9,13 +9,9 @@ import {
   Button,
   VStack,
   HStack,
-  Grid,
-  GridItem,
   Card,
   CardBody,
-  Icon,
   useColorModeValue,
-  Flex,
   SimpleGrid,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
@@ -227,49 +223,50 @@ const Homepage: React.FC = () => {
             </Heading>
             
             <SimpleGrid columns={{ base: 2, md: 4 }} spacing={8} w="full">
-              {stats.map((stat, index) => (
-                <MotionCard
-                  key={index}
-                  initial={{ y: 50, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  textAlign="center"
-                  bg={useColorModeValue('white', 'gray.700')}
-                  shadow="lg"
-                  borderRadius="2xl"
-                  _hover={{
-                    transform: 'translateY(-4px)',
-                    shadow: 'xl',
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <CardBody>
-                    <VStack spacing={4}>
-                      <Icon
-                        as={stat.icon}
-                        w={8}
-                        h={8}
-                        color="mint.500"
-                      />
-                      <Heading
-                        as="h3"
-                        size="2xl"
-                        bgGradient="linear(to-r, mint.500, ocean.500)"
-                        bgClip="text"
-                      >
-                        {stat.number}
-                      </Heading>
-                      <Text
-                        color={useColorModeValue('gray.600', 'gray.400')}
-                        fontWeight="medium"
-                      >
-                        {stat.label}
-                      </Text>
-                    </VStack>
-                  </CardBody>
-                </MotionCard>
-              ))}
+              {stats.map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <MotionCard
+                    key={index}
+                    initial={{ y: 50, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    textAlign="center"
+                    bg={useColorModeValue('white', 'gray.700')}
+                    shadow="lg"
+                    borderRadius="2xl"
+                    _hover={{
+                      transform: 'translateY(-4px)',
+                      shadow: 'xl',
+                    }}
+                    style={{ transition: 'all 0.3s ease' }}
+                  >
+                    <CardBody>
+                      <VStack spacing={4}>
+                        <IconComponent
+                          size={32}
+                          color={useColorModeValue('#14B8A6', '#5EEAD4')}
+                        />
+                        <Heading
+                          as="h3"
+                          size="2xl"
+                          bgGradient="linear(to-r, mint.500, ocean.500)"
+                          bgClip="text"
+                        >
+                          {stat.number}
+                        </Heading>
+                        <Text
+                          color={useColorModeValue('gray.600', 'gray.400')}
+                          fontWeight="medium"
+                        >
+                          {stat.label}
+                        </Text>
+                      </VStack>
+                    </CardBody>
+                  </MotionCard>
+                );
+              })}
             </SimpleGrid>
           </VStack>
         </Container>
@@ -299,64 +296,71 @@ const Homepage: React.FC = () => {
             </VStack>
 
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} w="full">
-              {features.map((feature, index) => (
-                <Link key={index} href={feature.href}>
-                  <MotionCard
-                    initial={{ y: 50, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    viewport={{ once: true }}
-                    whileHover={{ 
-                      y: -8,
-                      transition: { duration: 0.2 }
-                    }}
-                    bg={useColorModeValue('white', 'gray.700')}
-                    shadow="lg"
-                    borderRadius="2xl"
-                    cursor="pointer"
-                    h="full"
-                    _hover={{
-                      shadow: '2xl',
-                    }}
-                    transition="all 0.3s ease"
-                  >
-                    <CardBody>
-                      <VStack spacing={6} align="start" h="full">
-                        <Icon
-                          as={feature.icon}
-                          w={12}
-                          h={12}
-                          color={`${feature.color}.500`}
-                        />
-                        <VStack spacing={3} align="start" flex={1}>
-                          <Heading
-                            as="h3"
-                            size="lg"
-                            color={useColorModeValue('gray.800', 'white')}
+              {features.map((feature, index) => {
+                const IconComponent = feature.icon;
+                return (
+                  <Link key={index} href={feature.href}>
+                    <MotionCard
+                      initial={{ y: 50, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.6, delay: index * 0.2 }}
+                      viewport={{ once: true }}
+                      whileHover={{ 
+                        y: -8,
+                        transition: { duration: 0.2 }
+                      }}
+                      bg={useColorModeValue('white', 'gray.700')}
+                      shadow="lg"
+                      borderRadius="2xl"
+                      cursor="pointer"
+                      h="full"
+                      _hover={{
+                        shadow: '2xl',
+                      }}
+                      style={{ transition: 'all 0.3s ease' }}
+                    >
+                      <CardBody>
+                        <VStack spacing={6} align="start" h="full">
+                          <IconComponent
+                            size={48}
+                            color={useColorModeValue(
+                              feature.color === 'mint' ? '#14B8A6' : '#06B6D4',
+                              feature.color === 'mint' ? '#5EEAD4' : '#22D3EE'
+                            )}
+                          />
+                          <VStack spacing={3} align="start" flex={1}>
+                            <Heading
+                              as="h3"
+                              size="lg"
+                              color={useColorModeValue('gray.800', 'white')}
+                            >
+                              {feature.title}
+                            </Heading>
+                            <Text
+                              color={useColorModeValue('gray.600', 'gray.300')}
+                              lineHeight="tall"
+                            >
+                              {feature.description}
+                            </Text>
+                          </VStack>
+                          <HStack
+                            color={useColorModeValue(
+                              feature.color === 'mint' ? '#14B8A6' : '#06B6D4',
+                              feature.color === 'mint' ? '#5EEAD4' : '#22D3EE'
+                            )}
+                            fontWeight="medium"
+                            _groupHover={{ transform: 'translateX(4px)' }}
+                            transition="transform 0.2s"
                           >
-                            {feature.title}
-                          </Heading>
-                          <Text
-                            color={useColorModeValue('gray.600', 'gray.300')}
-                            lineHeight="tall"
-                          >
-                            {feature.description}
-                          </Text>
+                            <Text>Selengkapnya</Text>
+                            <Text>→</Text>
+                          </HStack>
                         </VStack>
-                        <HStack
-                          color={`${feature.color}.500`}
-                          fontWeight="medium"
-                          _groupHover={{ transform: 'translateX(4px)' }}
-                          transition="transform 0.2s"
-                        >
-                          <Text>Selengkapnya</Text>
-                          <Text>→</Text>
-                        </HStack>
-                      </VStack>
-                    </CardBody>
-                  </MotionCard>
-                </Link>
-              ))}
+                      </CardBody>
+                    </MotionCard>
+                  </Link>
+                );
+              })}
             </SimpleGrid>
           </VStack>
         </Container>

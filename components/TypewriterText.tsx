@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Text } from '@chakra-ui/react';
+import { Text, keyframes } from '@chakra-ui/react';
+
+const blink = keyframes`
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+`;
 
 interface TypewriterTextProps {
   texts: string[];
@@ -64,15 +69,9 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   return (
     <>
       {currentText}
-      <Text as="span" animation="blink 1s infinite">
+      <Text as="span" animation={`${blink} 1s infinite`} ml={1}>
         |
       </Text>
-      <style jsx>{`
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-      `}</style>
     </>
   );
 };
