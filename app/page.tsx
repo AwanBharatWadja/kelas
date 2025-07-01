@@ -1,63 +1,36 @@
-"use client";
-
 import React from 'react';
-import {
-  Box,
-  Container,
-  Heading,
-  Text,
-  Button,
-  VStack,
-  HStack,
-  Card,
-  CardBody,
-  useColorModeValue,
-  SimpleGrid,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
+import Head from 'next/head';
 import Link from 'next/link';
-import { Users, Camera, Phone, Star } from 'lucide-react';
 import TypewriterText from '../components/TypewriterText';
-import ThreeBackground from '../components/ThreeBackground';
-
-const MotionBox = motion(Box);
-const MotionCard = motion(Card);
+import AnimatedText from '../components/AnimatedText';
 
 const Homepage: React.FC = () => {
-  const bgGradient = useColorModeValue(
-    'linear(to-br, white, mint.50, ocean.50)',
-    'linear(to-br, gray.900, mint.900, ocean.900)'
-  );
-
   const features = [
     {
-      icon: Users,
+      icon: '👥',
       title: 'Profil Mahasiswa',
       description: 'Kenali lebih dekat 35 mahasiswa Informatika A dengan profil lengkap dan foto.',
-      href: '/profil',
-      color: 'mint',
+      href: '/profil'
     },
     {
-      icon: Camera,
+      icon: '📸',
       title: 'Galeri Kegiatan',
       description: 'Dokumentasi foto dan video kegiatan kelas dan organisasi.',
-      href: '/galeri',
-      color: 'ocean',
+      href: '/galeri'
     },
     {
-      icon: Phone,
+      icon: '📞',
       title: 'Hubungi Kami',
       description: 'Terhubung dengan kelas melalui form kontak dan media sosial.',
-      href: '/kontak',
-      color: 'mint',
+      href: '/kontak'
     }
   ];
 
   const stats = [
-    { number: '35', label: 'Mahasiswa', icon: Users },
-    { number: '100+', label: 'Kegiatan', icon: Camera },
-    { number: '4', label: 'Semester', icon: Star },
-    { number: '1', label: 'Kelas Terbaik', icon: Star }
+    { number: '35', label: 'Mahasiswa' },
+    { number: '100+', label: 'Kegiatan' },
+    { number: '4', label: 'Semester' },
+    { number: '1', label: 'Kelas Terbaik' }
   ];
 
   const typewriterTexts = [
@@ -67,353 +40,164 @@ const Homepage: React.FC = () => {
     'Bersama Informatika A'
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
-    },
-  };
-
   return (
     <>
+      <Head>
+        <title>Informatika A - Kelas Terdepan dalam Teknologi</title>
+        <meta name="description" content="Website resmi kelas Informatika A - Mengenal lebih dekat mahasiswa, kegiatan, dan prestasi kelas." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       {/* Hero Section */}
-      <Box
-        position="relative"
-        minH="100vh"
-        bgGradient={bgGradient}
-        overflow="hidden"
-      >
-        <ThreeBackground />
-        
-        <Container maxW="7xl" h="100vh" display="flex" alignItems="center">
-          <MotionBox
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            textAlign="center"
-            w="full"
-          >
-            <VStack spacing={8}>
-              <MotionBox variants={itemVariants}>
-                <Heading
-                  as="h1"
-                  size="4xl"
-                  fontFamily="heading"
-                  bgGradient="linear(to-r, mint.500, ocean.500)"
-                  bgClip="text"
-                  mb={6}
-                  lineHeight="shorter"
-                >
-                  Informatika A
-                </Heading>
-              </MotionBox>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Optimized Background Animation - Reduced opacity and size */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/4 left-1/4 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-pink-500/8 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+        </div>
 
-              <MotionBox variants={itemVariants}>
-                <Box minH="20" display="flex" alignItems="center" justifyContent="center">
-                  <Text
-                    fontSize={{ base: 'xl', md: '2xl' }}
-                    color={useColorModeValue('gray.600', 'gray.300')}
-                    fontWeight="medium"
-                  >
-                    <TypewriterText
-                      texts={typewriterTexts}
-                      speed={80}
-                      deleteSpeed={40}
-                      pauseTime={2000}
-                    />
-                  </Text>
-                </Box>
-              </MotionBox>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-fade-in">
+            <AnimatedText
+              text="Informatika A"
+              className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-6 text-gray-800 dark:text-gray-200"
+              animation="fadeInUp"
+              delay={200}
+            />
+            
+            <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto min-h-[3rem] flex items-center justify-center">
+              <TypewriterText
+                texts={typewriterTexts}
+                speed={80}
+                deleteSpeed={40}
+                pauseTime={2000}
+                className="font-medium"
+              />
+            </div>
 
-              <MotionBox variants={itemVariants}>
-                <Text
-                  fontSize={{ base: 'lg', md: 'xl' }}
-                  color={useColorModeValue('gray.600', 'gray.400')}
-                  maxW="2xl"
-                  mx="auto"
-                  mb={8}
-                  lineHeight="tall"
-                >
-                  Bersama membangun masa depan digital yang lebih baik dengan 35 mahasiswa yang berdedikasi.
-                </Text>
-              </MotionBox>
+            <AnimatedText
+              text="Bersama membangun masa depan digital yang lebih baik dengan 35 mahasiswa yang berdedikasi."
+              className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
+              animation="fadeInUp"
+              delay={1000}
+            />
 
-              <MotionBox variants={itemVariants}>
-                <HStack spacing={4} justify="center" flexWrap="wrap">
-                  <Link href="/profil">
-                    <Button
-                      size="lg"
-                      bgGradient="linear(to-r, mint.400, ocean.400)"
-                      color="white"
-                      _hover={{
-                        bgGradient: 'linear(to-r, mint.500, ocean.500)',
-                        transform: 'translateY(-2px)',
-                        boxShadow: 'xl',
-                      }}
-                      _active={{
-                        transform: 'translateY(0)',
-                      }}
-                      transition="all 0.2s"
-                      px={8}
-                      py={6}
-                      fontSize="lg"
-                      borderRadius="xl"
-                    >
-                      Kenali Kami
-                    </Button>
-                  </Link>
-                  <Link href="/galeri">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      borderColor="mint.400"
-                      color="mint.500"
-                      _hover={{
-                        bg: 'mint.50',
-                        transform: 'translateY(-2px)',
-                        boxShadow: 'lg',
-                      }}
-                      _active={{
-                        transform: 'translateY(0)',
-                      }}
-                      transition="all 0.2s"
-                      px={8}
-                      py={6}
-                      fontSize="lg"
-                      borderRadius="xl"
-                    >
-                      Lihat Galeri
-                    </Button>
-                  </Link>
-                </HStack>
-              </MotionBox>
-            </VStack>
-          </MotionBox>
-        </Container>
-      </Box>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/profil" className="btn-primary text-lg px-8 py-3 transform hover:scale-105 transition-all duration-200">
+                Kenali Kami
+              </Link>
+              <Link href="/galeri" className="btn-secondary text-lg px-8 py-3 transform hover:scale-105 transition-all duration-200">
+                Lihat Galeri
+              </Link>
+            </div>
+          </div>
+
+          {/* Floating Elements - Reduced size and opacity */}
+          <div className="absolute top-20 left-10 animate-float">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl rotate-12 opacity-60"></div>
+          </div>
+          <div className="absolute bottom-32 right-10 animate-float" style={{ animationDelay: '1s' }}>
+            <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-red-500 rounded-full opacity-60"></div>
+          </div>
+          <div className="absolute top-1/2 right-20 animate-float" style={{ animationDelay: '2s' }}>
+            <div className="w-6 h-6 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg rotate-45 opacity-60"></div>
+          </div>
+        </div>
+      </section>
 
       {/* Stats Section */}
-      <Box py={20} bg={useColorModeValue('gray.50', 'gray.800')}>
-        <Container maxW="7xl">
-          <VStack spacing={12}>
-            <Heading
-              as="h2"
-              size="xl"
-              textAlign="center"
-              bgGradient="linear(to-r, mint.500, ocean.500)"
-              bgClip="text"
-            >
-              Statistik Kelas
-            </Heading>
-            
-            <SimpleGrid columns={{ base: 2, md: 4 }} spacing={8} w="full">
-              {stats.map((stat, index) => {
-                const IconComponent = stat.icon;
-                return (
-                  <MotionCard
-                    key={index}
-                    initial={{ y: 50, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    textAlign="center"
-                    bg={useColorModeValue('white', 'gray.700')}
-                    shadow="lg"
-                    borderRadius="2xl"
-                    _hover={{
-                      transform: 'translateY(-4px)',
-                      shadow: 'xl',
-                    }}
-                    style={{ transition: 'all 0.3s ease' }}
-                  >
-                    <CardBody>
-                      <VStack spacing={4}>
-                        <IconComponent
-                          size={32}
-                          color={useColorModeValue('#14B8A6', '#5EEAD4')}
-                        />
-                        <Heading
-                          as="h3"
-                          size="2xl"
-                          bgGradient="linear(to-r, mint.500, ocean.500)"
-                          bgClip="text"
-                        >
-                          {stat.number}
-                        </Heading>
-                        <Text
-                          color={useColorModeValue('gray.600', 'gray.400')}
-                          fontWeight="medium"
-                        >
-                          {stat.label}
-                        </Text>
-                      </VStack>
-                    </CardBody>
-                  </MotionCard>
-                );
-              })}
-            </SimpleGrid>
-          </VStack>
-        </Container>
-      </Box>
+      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedText
+            text="Statistik Kelas"
+            className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-800 dark:text-gray-200"
+            animation="fadeInUp"
+          />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <AnimatedText
+                  text={stat.number}
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gradient mb-2"
+                  animation="bounce"
+                  delay={index * 100}
+                />
+                <AnimatedText
+                  text={stat.label}
+                  className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg font-medium"
+                  animation="fadeInUp"
+                  delay={index * 100 + 200}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
-      <Box py={20}>
-        <Container maxW="7xl">
-          <VStack spacing={16}>
-            <VStack spacing={4} textAlign="center">
-              <Heading
-                as="h2"
-                size="2xl"
-                fontFamily="heading"
-                bgGradient="linear(to-r, mint.500, ocean.500)"
-                bgClip="text"
-              >
-                Jelajahi Kelas Kami
-              </Heading>
-              <Text
-                fontSize="xl"
-                color={useColorModeValue('gray.600', 'gray.300')}
-                maxW="2xl"
-              >
-                Temukan berbagai informasi menarik tentang kelas Informatika A
-              </Text>
-            </VStack>
+      <section className="py-12 sm:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <AnimatedText
+              text="Jelajahi Kelas Kami"
+              className="text-3xl md:text-4xl font-display font-bold mb-4 text-gray-800 dark:text-gray-200"
+              animation="fadeInUp"
+            />
+            <AnimatedText
+              text="Temukan berbagai informasi menarik tentang kelas Informatika A"
+              className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+              animation="fadeInUp"
+              delay={200}
+            />
+          </div>
 
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8} w="full">
-              {features.map((feature, index) => {
-                const IconComponent = feature.icon;
-                return (
-                  <Link key={index} href={feature.href}>
-                    <MotionCard
-                      initial={{ y: 50, opacity: 0 }}
-                      whileInView={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.6, delay: index * 0.2 }}
-                      viewport={{ once: true }}
-                      whileHover={{ 
-                        y: -8,
-                        transition: { duration: 0.2 }
-                      }}
-                      bg={useColorModeValue('white', 'gray.700')}
-                      shadow="lg"
-                      borderRadius="2xl"
-                      cursor="pointer"
-                      h="full"
-                      _hover={{
-                        shadow: '2xl',
-                      }}
-                      style={{ transition: 'all 0.3s ease' }}
-                    >
-                      <CardBody>
-                        <VStack spacing={6} align="start" h="full">
-                          <IconComponent
-                            size={48}
-                            color={useColorModeValue(
-                              feature.color === 'mint' ? '#14B8A6' : '#06B6D4',
-                              feature.color === 'mint' ? '#5EEAD4' : '#22D3EE'
-                            )}
-                          />
-                          <VStack spacing={3} align="start" flex={1}>
-                            <Heading
-                              as="h3"
-                              size="lg"
-                              color={useColorModeValue('gray.800', 'white')}
-                            >
-                              {feature.title}
-                            </Heading>
-                            <Text
-                              color={useColorModeValue('gray.600', 'gray.300')}
-                              lineHeight="tall"
-                            >
-                              {feature.description}
-                            </Text>
-                          </VStack>
-                          <HStack
-                            color={useColorModeValue(
-                              feature.color === 'mint' ? '#14B8A6' : '#06B6D4',
-                              feature.color === 'mint' ? '#5EEAD4' : '#22D3EE'
-                            )}
-                            fontWeight="medium"
-                            _groupHover={{ transform: 'translateX(4px)' }}
-                            transition="transform 0.2s"
-                          >
-                            <Text>Selengkapnya</Text>
-                            <Text>→</Text>
-                          </HStack>
-                        </VStack>
-                      </CardBody>
-                    </MotionCard>
-                  </Link>
-                );
-              })}
-            </SimpleGrid>
-          </VStack>
-        </Container>
-      </Box>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {features.map((feature, index) => (
+              <Link key={index} href={feature.href}>
+                <div className="group p-6 sm:p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 card-hover border border-gray-200 dark:border-gray-700 animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
+                  <div className="text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+                    {feature.description}
+                  </p>
+                  <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 group-hover:translate-x-2 transition-transform duration-300">
+                    <span className="font-medium text-sm sm:text-base">Selengkapnya</span>
+                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
-      <Box
-        py={20}
-        bgGradient="linear(to-r, mint.500, ocean.500)"
-        color="white"
-      >
-        <Container maxW="4xl" textAlign="center">
-          <VStack spacing={8}>
-            <Heading
-              as="h2"
-              size="2xl"
-              fontFamily="heading"
-            >
-              Bergabung dengan Komunitas Kami
-            </Heading>
-            <Text
-              fontSize="xl"
-              opacity={0.9}
-              maxW="2xl"
-            >
-              Terhubung dengan mahasiswa Informatika A dan ikuti perkembangan terbaru kelas
-            </Text>
-            <Link href="/kontak">
-              <Button
-                size="lg"
-                bg="white"
-                color="mint.600"
-                _hover={{
-                  bg: 'gray.100',
-                  transform: 'translateY(-2px)',
-                  boxShadow: 'xl',
-                }}
-                _active={{
-                  transform: 'translateY(0)',
-                }}
-                transition="all 0.2s"
-                px={8}
-                py={6}
-                fontSize="lg"
-                borderRadius="xl"
-                fontWeight="bold"
-              >
-                Hubungi Kami
-              </Button>
-            </Link>
-          </VStack>
-        </Container>
-      </Box>
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <AnimatedText
+            text="Bergabung dengan Komunitas Kami"
+            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-4 sm:mb-6"
+            animation="fadeInUp"
+          />
+          <AnimatedText
+            text="Terhubung dengan mahasiswa Informatika A dan ikuti perkembangan terbaru kelas"
+            className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8"
+            animation="fadeInUp"
+            delay={200}
+          />
+          <Link href="/kontak" className="inline-block bg-white text-blue-600 font-bold py-3 px-6 sm:px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105 text-sm sm:text-base">
+            Hubungi Kami
+          </Link>
+        </div>
+      </section>
     </>
   );
 };
