@@ -24,11 +24,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  HamburgerIcon, 
-  CloseIcon, 
-  MoonIcon, 
-  SunIcon
-} from '@chakra-ui/icons';
+  Menu, 
+  X, 
+  Moon, 
+  Sun
+} from 'lucide-react';
 
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
@@ -178,7 +178,7 @@ export default function Navbar() {
               size="md"
               variant="ghost"
               aria-label="Toggle color mode"
-              icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              icon={colorMode === 'light' ? <Moon size={20} /> : <Sun size={20} />}
               onClick={toggleColorMode}
               _hover={{
                 transform: 'rotate(180deg)',
@@ -194,7 +194,7 @@ export default function Navbar() {
               size="md"
               variant="ghost"
               aria-label="Toggle color mode"
-              icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              icon={colorMode === 'light' ? <Moon size={18} /> : <Sun size={18} />}
               onClick={toggleColorMode}
               mr={2}
               _hover={{
@@ -205,7 +205,7 @@ export default function Navbar() {
             />
             <IconButton
               size="md"
-              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+              icon={isOpen ? <X size={20} /> : <Menu size={20} />}
               aria-label="Open Menu"
               onClick={onOpen}
               variant="ghost"

@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FiUsers, FiCamera, FiPhone, FiStar } from 'react-icons/fi';
+import { Users, Camera, Phone, Star } from 'lucide-react';
 import TypewriterText from '../components/TypewriterText';
 import ThreeBackground from '../components/ThreeBackground';
 
@@ -31,21 +31,21 @@ const Homepage: React.FC = () => {
 
   const features = [
     {
-      icon: FiUsers,
+      icon: Users,
       title: 'Profil Mahasiswa',
       description: 'Kenali lebih dekat 35 mahasiswa Informatika A dengan profil lengkap dan foto.',
       href: '/profil',
       color: 'mint',
     },
     {
-      icon: FiCamera,
+      icon: Camera,
       title: 'Galeri Kegiatan',
       description: 'Dokumentasi foto dan video kegiatan kelas dan organisasi.',
       href: '/galeri',
       color: 'ocean',
     },
     {
-      icon: FiPhone,
+      icon: Phone,
       title: 'Hubungi Kami',
       description: 'Terhubung dengan kelas melalui form kontak dan media sosial.',
       href: '/kontak',
@@ -54,10 +54,10 @@ const Homepage: React.FC = () => {
   ];
 
   const stats = [
-    { number: '35', label: 'Mahasiswa', icon: FiUsers },
-    { number: '100+', label: 'Kegiatan', icon: FiCamera },
-    { number: '4', label: 'Semester', icon: FiStar },
-    { number: '1', label: 'Kelas Terbaik', icon: FiStar }
+    { number: '35', label: 'Mahasiswa', icon: Users },
+    { number: '100+', label: 'Kegiatan', icon: Camera },
+    { number: '4', label: 'Semester', icon: Star },
+    { number: '1', label: 'Kelas Terbaik', icon: Star }
   ];
 
   const typewriterTexts = [

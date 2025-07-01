@@ -11,10 +11,10 @@ function AnimatedPoints() {
   const particleColor = useColorModeValue('#14B8A6', '#5EEAD4');
 
   const [positions, colors] = useMemo(() => {
-    const positions = new Float32Array(1000 * 3);
-    const colors = new Float32Array(1000 * 3);
+    const positions = new Float32Array(800 * 3);
+    const colors = new Float32Array(800 * 3);
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 800; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
@@ -30,8 +30,8 @@ function AnimatedPoints() {
 
   useFrame((state) => {
     if (ref.current) {
-      ref.current.rotation.x = state.clock.elapsedTime * 0.02;
-      ref.current.rotation.y = state.clock.elapsedTime * 0.03;
+      ref.current.rotation.x = state.clock.elapsedTime * 0.01;
+      ref.current.rotation.y = state.clock.elapsedTime * 0.02;
     }
   });
 
@@ -40,10 +40,10 @@ function AnimatedPoints() {
       <PointMaterial
         transparent
         color={particleColor}
-        size={0.015}
+        size={0.012}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.4}
+        opacity={0.3}
       />
     </Points>
   );
@@ -55,19 +55,19 @@ function FloatingGeometry() {
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.1;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.15;
-      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.08;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.12;
+      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.2;
     }
   });
 
   return (
     <mesh ref={meshRef} position={[2, 0, -2]}>
-      <icosahedronGeometry args={[0.3, 1]} />
+      <icosahedronGeometry args={[0.25, 1]} />
       <meshStandardMaterial
         color={geometryColor}
         transparent
-        opacity={0.2}
+        opacity={0.15}
         wireframe
       />
     </mesh>
@@ -77,8 +77,8 @@ function FloatingGeometry() {
 function Scene() {
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={0.5} />
+      <ambientLight intensity={0.2} />
+      <pointLight position={[10, 10, 10]} intensity={0.3} />
       <AnimatedPoints />
       <FloatingGeometry />
     </>
@@ -99,8 +99,9 @@ export default function ThreeBackground() {
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
         style={{ background: 'transparent' }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
+        gl={{ antialias: false, alpha: true }}
       >
         <Suspense fallback={null}>
           <Scene />
