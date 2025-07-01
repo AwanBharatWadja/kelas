@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    optimizePackageImports: ['@chakra-ui/react', 'framer-motion']
+  },
   images: {
     remotePatterns: [
       {
@@ -20,8 +23,14 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
-      // Tambahkan hostname lain jika diperlukan
     ],
+  },
+  webpack: (config) => {
+    config.externals.push({
+      'utf-8-validate': 'commonjs utf-8-validate',
+      'bufferutil': 'commonjs bufferutil',
+    });
+    return config;
   },
 }
 

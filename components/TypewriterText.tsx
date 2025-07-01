@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { Text } from '@chakra-ui/react';
 
 interface TypewriterTextProps {
   texts: string[];
   speed?: number;
   deleteSpeed?: number;
   pauseTime?: number;
-  className?: string;
   loop?: boolean;
 }
 
@@ -16,7 +16,6 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   speed = 100,
   deleteSpeed = 50,
   pauseTime = 2000,
-  className = '',
   loop = true
 }) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -63,10 +62,18 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime, loop]);
 
   return (
-    <span className={className}>
+    <>
       {currentText}
-      <span className="animate-pulse">|</span>
-    </span>
+      <Text as="span" animation="blink 1s infinite">
+        |
+      </Text>
+      <style jsx>{`
+        @keyframes blink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+      `}</style>
+    </>
   );
 };
 

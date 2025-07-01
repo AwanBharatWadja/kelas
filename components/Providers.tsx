@@ -1,7 +1,9 @@
 "use client";
 
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { ThemeProvider } from 'next-themes';
 import { ReactNode } from 'react';
+import { theme } from '../theme/theme';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -9,16 +11,20 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="light" // Changed from "system" to prevent hydration issues
-      enableSystem={true}
-      disableTransitionOnChange={false} // Enable smooth transitions
-      storageKey="informatika-theme" // More specific storage key
-      themes={['light', 'dark']} // Removed 'system' to simplify
-      forcedTheme={undefined}
-    >
-      {children}
-    </ThemeProvider>
+    <>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <ChakraProvider theme={theme}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={true}
+          disableTransitionOnChange={false}
+          storageKey="informatika-theme"
+          themes={['light', 'dark']}
+        >
+          {children}
+        </ThemeProvider>
+      </ChakraProvider>
+    </>
   );
 }
